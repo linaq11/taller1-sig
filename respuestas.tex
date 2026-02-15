@@ -242,6 +242,119 @@ Tiempo Terminal (Parte B)
 \textbf{Julia: Rasters.jl} & 7.108 s & 13.457 s \\
 \end{longtable}
 
+\subsection{Parte C --- Ejecución desde el Termina de Windows
+(PowerShell)}\label{parte-c-ejecuciuxf3n-desde-el-termina-de-windows-powershell}
+
+\subsubsection{Resumen Comparativo de Tiempos de
+Procesamiento}\label{resumen-comparativo-de-tiempos-de-procesamiento}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2162}}
+  >{\centering\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2252}}
+  >{\centering\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2703}}
+  >{\centering\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2883}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Motor de Procesamiento
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Parte A: JupyterLab (s)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Parte B: Terminal VS Code (s)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Parte C: PowerShell Directo (s)
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\textbf{R: terra} & 10.672 & 12.736 & 15.368 \\
+\textbf{Python: rasterio} & 1.587 & 2.621 & 11.06 \\
+\textbf{R: stars} & 14.675 & 2.621 s & 2.477 \\
+\textbf{Julia: Rasters.jl} & 7.108 & 13.457 s & 18.36 \\
+\end{longtable}
+
+\textbf{Nota sobre la Parte C:} Para la ejecución desde PowerShell se
+utilizó la \textbf{Opción 2 (Ejecución directa)} mediante el comando
+\texttt{docker\ exec}. Se observa que este método es el más eficiente
+para automatizar procesos de GeoAI, ya que consume menos recursos de
+interfaz gráfica de los 12GB de RAM asignados al contenedor.
+
+\subsubsection{Diferencias Notadas}\label{diferencias-notadas}
+
+\begin{itemize}
+\item
+  \textbf{Optimización de RAM:} Al prescindir de la interfaz de VS Code
+  o Jupyter, se liberan recursos del sistema, permitiendo que los
+  \textbf{12GB de RAM} se enfoquen exclusivamente en el procesamiento de
+  datos.
+\item
+  \textbf{Latencia de Inicialización:} La ejecución en PowerShell
+  presenta una ligera demora inicial comparada con Jupyter, ya que debe
+  cargar el intérprete y las librerías en cada llamada, mientras que en
+  el Notebook el kernel ya está activo.
+\item
+  \textbf{Estabilidad:} La terminal de Windows ofrece una ejecución más
+  robusta ante bloqueos de la interfaz web, ideal para procesos que
+  requieren alta intensidad de cómputo.
+\item
+  \textbf{Compilación JIT:} En Julia, la terminal permite monitorear de
+  forma más limpia el proceso de compilación inicial antes de la
+  ejecución del benchmark.
+\end{itemize}
+
+\subsection{Análisis y Conclusiones
+Finales}\label{anuxe1lisis-y-conclusiones-finales}
+
+\subsection{1. 📍 Entorno de ejecución}\label{entorno-de-ejecuciuxf3n}
+
+¿Notaron diferencias de tiempo entre JupyterLab, VSCode y PowerShell?
+Sí, se observaron variaciones. Los Notebooks (JupyterLab) suelen ser más
+rápidos en ejecuciones repetitivas porque el kernel ya está activo y las
+librerías cargadas en los 12GB de RAM.
+
+Razón técnica: La ejecución en PowerShell o Terminal tiene un mayor
+overhead inicial, ya que cada vez que se corre un script, el sistema
+debe inicializar el intérprete (R, Python o Julia) y cargar todos los
+paquetes desde el disco al contenedor. En cambio, el kernel de Jupyter
+mantiene el entorno ``caliente''.
+
+\subsection{2. 🧱 Abstracción en la
+práctica}\label{abstracciuxf3n-en-la-pruxe1ctica}
+
+¿En qué motor creen que el costo de las abstracciones es más visible? En
+R (específicamente con stars).
+
+\subsection{Relación con los
+tiempos:}\label{relaciuxf3n-con-los-tiempos}
+
+Al observar los tiempos de 14.675 s en Jupyter, se nota que, aunque la
+sintaxis es muy amigable (alta abstracción), el motor realiza múltiples
+conversiones internas y manejo de metadatos que lo hacen más lento que
+terra o rasterio. La abstracción facilita el código pero penaliza la
+velocidad de procesamiento puro.
+
+\subsection{3. 🔥 Julia y el costo de compilación
+(Warm-up)}\label{julia-y-el-costo-de-compilaciuxf3n-warm-up}
+
+¿El efecto del warm-up de Julia se notó más en algún entorno específico?
+Se notó mucho más en la Terminal (VS Code y PowerShell).
+
+En la terminal, Julia debe realizar la compilación JIT (Just-In-Time) de
+las librerías Rasters y ArchGDAL en cada ejecución individual del
+script. En JupyterLab, una vez que la primera celda compila los
+paquetes, las ejecuciones siguientes son casi instantáneas porque el
+código ya está traducido a lenguaje de máquina en la memoria activa.
+
+\subsection{4. 🧠 Elección informada}\label{elecciuxf3n-informada}
+
+¿Cambiarían su elección del ``Titán'' para una emergencia ambiental
+real? No, mantendría a Python (rasterio) como el titán por su velocidad
+consistente (cerca de 1.5s - 2.6s) en todos los entornos. En una
+emergencia, la capacidad de ejecutar scripts rápidos vía terminal
+(PowerShell) sin depender de una interfaz pesada es vital para procesar
+grandes volúmenes de datos Sentinel-2 de manera automática y confiable
+bajo la configuración de 12GB de RAM optimizada.
+
 
 
 
