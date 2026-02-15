@@ -50,10 +50,10 @@ En este ejercicio se procesó una banda de Sentinel-2A (~120 millones de píxele
 
 | Motor de Procesamiento | Parte A: JupyterLab (s) | Parte B: Terminal VS Code (s) | Parte C: PowerShell Directo (s) |
 |:-----------------------|:-----------------------:|:----------------------------:|:------------------------------:|
-| **R: terra** | 10.672                  | 12.736                       |  15.368[TIEMPO]                       |
-| **Python: rasterio** | 1.587                   | 2.621                        | 11.06 seg[TIEMPO]                       |
-| **R: stars** | 14.675                  | 2.621 s                    |  2.477[TIEMPO]                       |
-| **Julia: Rasters.jl** | 7.108                   | 13.457 s                    | 18.36 s[TIEMPO]                       |
+| **R: terra** | 10.672                  | 12.736                       |  15.368                  |
+| **Python: rasterio** | 1.587                   | 2.621                        | 11.06                    |
+| **R: stars** | 14.675                  | 2.621 s                    |  2.477                      |
+| **Julia: Rasters.jl** | 7.108                   | 13.457 s                    | 18.36                   |
 
 **Nota sobre la Parte C:** Para la ejecución desde PowerShell se utilizó la **Opción 2 (Ejecución directa)** mediante el comando `docker exec`. Se observa que este método es el más eficiente para automatizar procesos de GeoAI, ya que consume menos recursos de interfaz gráfica de los 12GB de RAM asignados al contenedor.
 
