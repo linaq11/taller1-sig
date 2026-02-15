@@ -1,0 +1,34 @@
+---
+title: "respuestas.qmd"
+format: html
+---
+
+---
+title: "Taller 1: Evaluación Comparativa de Procesamiento Geoespacial"
+author: "Lina Quintero"
+date: "2026-02-15"
+format:
+  html:
+    toc: true
+    theme: cosmo
+---
+## Metodología
+En este ejercicio se procesó una banda de Sentinel-2A (~120 millones de píxeles) para comparar el rendimiento de diferentes motores geoespaciales bajo una operación aritmética y una reducción global (media).
+
+## Parte A: Resultados en JupyterLab
+
+| Motor Geoespacial | Lenguaje | Tiempo (s) | Media Global |
+|:------------------|:---------|:-----------|:-------------|
+| **R: terra** | R (C++)  | 10.672 | 3766.625   |
+| **R: stars** | R        | 14.675 | 3766.625    |
+| **Python: rasterio**| Python   |  1.587 | 766.624630   |
+| **Julia: Rasters.jl**| Julia    | 7.10847472 | 3766.62463   |
+
+### Observaciones por Notebook
+
+* **01_benchmark_terra.ipynb**: El motor `terra` es altamente eficiente ya que gestiona los archivos por referencia y realiza los cálculos en C++.
+* **02_benchmark_stars.ipynb**: Este motor suele ser más lento en reducciones globales debido a la materialización de datos en la memoria de R.
+* **03_benchmark_rasterio.ipynb**: Destaca por su velocidad al utilizar arreglos de NumPy optimizados con instrucciones de hardware.
+* **04_benchmark_rasters_julia.ipynb**: Julia utiliza un modelo de pipelines composables que, tras la compilación inicial, permite un procesamiento nativo muy fluido.
+
+
