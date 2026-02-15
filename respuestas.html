@@ -54,6 +54,8 @@ ul.task-list li input[type="checkbox"] {
   <ul class="collapse">
   <li><a href="#observaciones-por-notebook" id="toc-observaciones-por-notebook" class="nav-link" data-scroll-target="#observaciones-por-notebook">Observaciones por Notebook</a></li>
   </ul></li>
+  <li><a href="#parte-b-ejecución-desde-vscode-terminal-integrada" id="toc-parte-b-ejecución-desde-vscode-terminal-integrada" class="nav-link" data-scroll-target="#parte-b-ejecución-desde-vscode-terminal-integrada">parte B — Ejecución desde VSCode (terminal integrada)</a></li>
+  <li><a href="#comparación-de-rendimiento-notebooks-vs.-terminal" id="toc-comparación-de-rendimiento-notebooks-vs.-terminal" class="nav-link" data-scroll-target="#comparación-de-rendimiento-notebooks-vs.-terminal">Comparación de Rendimiento: Notebooks vs.&nbsp;Terminal</a></li>
   </ul>
 </nav>
 </div>
@@ -141,6 +143,48 @@ ul.task-list li input[type="checkbox"] {
 <li><strong>04_benchmark_rasters_julia.ipynb</strong>: Julia utiliza un modelo de pipelines composables que, tras la compilación inicial, permite un procesamiento nativo muy fluido.</li>
 </ul>
 </section>
+</section>
+<section id="parte-b-ejecución-desde-vscode-terminal-integrada" class="level2">
+<h2 class="anchored" data-anchor-id="parte-b-ejecución-desde-vscode-terminal-integrada">parte B — Ejecución desde VSCode (terminal integrada)</h2>
+</section>
+<section id="comparación-de-rendimiento-notebooks-vs.-terminal" class="level2">
+<h2 class="anchored" data-anchor-id="comparación-de-rendimiento-notebooks-vs.-terminal">Comparación de Rendimiento: Notebooks vs.&nbsp;Terminal</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 30%">
+<col style="width: 34%">
+<col style="width: 34%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Motor de Procesamiento</th>
+<th style="text-align: center;">Tiempo Notebook (Parte A)</th>
+<th style="text-align: center;">Tiempo Terminal (Parte B)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>R: terra</strong></td>
+<td style="text-align: center;">10.672 s</td>
+<td style="text-align: center;">12.736 s</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>R: stars</strong></td>
+<td style="text-align: center;">14.675 s</td>
+<td style="text-align: center;">15.227 s</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Python: rasterio</strong></td>
+<td style="text-align: center;">1.587 s</td>
+<td style="text-align: center;">2.621 s</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Julia: Rasters.jl</strong></td>
+<td style="text-align: center;">7.108 s</td>
+<td style="text-align: center;">13.457 s</td>
+</tr>
+</tbody>
+</table>
 </section>
 
 </main>

@@ -32,3 +32,13 @@ En este ejercicio se procesó una banda de Sentinel-2A (~120 millones de píxele
 * **04_benchmark_rasters_julia.ipynb**: Julia utiliza un modelo de pipelines composables que, tras la compilación inicial, permite un procesamiento nativo muy fluido.
 
 
+## parte B — Ejecución desde VSCode (terminal integrada)
+
+## Comparación de Rendimiento: Notebooks vs. Terminal
+
+| Motor de Procesamiento | Tiempo Notebook (Parte A) | Tiempo Terminal (Parte B) |
+|:-----------------------|:-------------------------:|:-------------------------:|
+| **R: terra** | 10.672 s                 | 12.736 s                  |
+| **R: stars** | 14.675 s                 | 15.227 s         |
+| **Python: rasterio** | 1.587 s                  | 2.621 s                   |
+| **Julia: Rasters.jl** | 7.108 s                  | 13.457 s         |

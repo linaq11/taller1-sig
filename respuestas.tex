@@ -214,6 +214,34 @@ Notebook}\label{observaciones-por-notebook}
   procesamiento nativo muy fluido.
 \end{itemize}
 
+\subsection{parte B --- Ejecución desde VSCode (terminal
+integrada)}\label{parte-b-ejecuciuxf3n-desde-vscode-terminal-integrada}
+
+\subsection{Comparación de Rendimiento: Notebooks
+vs.~Terminal}\label{comparaciuxf3n-de-rendimiento-notebooks-vs.-terminal}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3077}}
+  >{\centering\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3462}}
+  >{\centering\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3462}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Motor de Procesamiento
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Tiempo Notebook (Parte A)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Tiempo Terminal (Parte B)
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\textbf{R: terra} & 10.672 s & 12.736 s \\
+\textbf{R: stars} & 14.675 s & 15.227 s \\
+\textbf{Python: rasterio} & 1.587 s & 2.621 s \\
+\textbf{Julia: Rasters.jl} & 7.108 s & 13.457 s \\
+\end{longtable}
+
 
 
 
