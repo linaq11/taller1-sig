@@ -56,6 +56,17 @@ ul.task-list li input[type="checkbox"] {
   </ul></li>
   <li><a href="#parte-b-ejecución-desde-vscode-terminal-integrada" id="toc-parte-b-ejecución-desde-vscode-terminal-integrada" class="nav-link" data-scroll-target="#parte-b-ejecución-desde-vscode-terminal-integrada">parte B — Ejecución desde VSCode (terminal integrada)</a></li>
   <li><a href="#comparación-de-rendimiento-notebooks-vs.-terminal" id="toc-comparación-de-rendimiento-notebooks-vs.-terminal" class="nav-link" data-scroll-target="#comparación-de-rendimiento-notebooks-vs.-terminal">Comparación de Rendimiento: Notebooks vs.&nbsp;Terminal</a></li>
+  <li><a href="#parte-c-ejecución-desde-el-termina-de-windows-powershell" id="toc-parte-c-ejecución-desde-el-termina-de-windows-powershell" class="nav-link" data-scroll-target="#parte-c-ejecución-desde-el-termina-de-windows-powershell">Parte C — Ejecución desde el Termina de Windows (PowerShell)</a>
+  <ul class="collapse">
+  <li><a href="#resumen-comparativo-de-tiempos-de-procesamiento" id="toc-resumen-comparativo-de-tiempos-de-procesamiento" class="nav-link" data-scroll-target="#resumen-comparativo-de-tiempos-de-procesamiento">Resumen Comparativo de Tiempos de Procesamiento</a></li>
+  <li><a href="#diferencias-notadas" id="toc-diferencias-notadas" class="nav-link" data-scroll-target="#diferencias-notadas">Diferencias Notadas</a></li>
+  </ul></li>
+  <li><a href="#análisis-y-conclusiones-finales" id="toc-análisis-y-conclusiones-finales" class="nav-link" data-scroll-target="#análisis-y-conclusiones-finales">Análisis y Conclusiones Finales</a></li>
+  <li><a href="#entorno-de-ejecución" id="toc-entorno-de-ejecución" class="nav-link" data-scroll-target="#entorno-de-ejecución">1. 📍 Entorno de ejecución</a></li>
+  <li><a href="#abstracción-en-la-práctica" id="toc-abstracción-en-la-práctica" class="nav-link" data-scroll-target="#abstracción-en-la-práctica">2. 🧱 Abstracción en la práctica</a></li>
+  <li><a href="#relación-con-los-tiempos" id="toc-relación-con-los-tiempos" class="nav-link" data-scroll-target="#relación-con-los-tiempos">Relación con los tiempos:</a></li>
+  <li><a href="#julia-y-el-costo-de-compilación-warm-up" id="toc-julia-y-el-costo-de-compilación-warm-up" class="nav-link" data-scroll-target="#julia-y-el-costo-de-compilación-warm-up">3. 🔥 Julia y el costo de compilación (Warm-up)</a></li>
+  <li><a href="#elección-informada" id="toc-elección-informada" class="nav-link" data-scroll-target="#elección-informada">4. 🧠 Elección informada</a></li>
   </ul>
 </nav>
 </div>
@@ -185,6 +196,89 @@ ul.task-list li input[type="checkbox"] {
 </tr>
 </tbody>
 </table>
+</section>
+<section id="parte-c-ejecución-desde-el-termina-de-windows-powershell" class="level2">
+<h2 class="anchored" data-anchor-id="parte-c-ejecución-desde-el-termina-de-windows-powershell">Parte C — Ejecución desde el Termina de Windows (PowerShell)</h2>
+<section id="resumen-comparativo-de-tiempos-de-procesamiento" class="level3">
+<h3 class="anchored" data-anchor-id="resumen-comparativo-de-tiempos-de-procesamiento">Resumen Comparativo de Tiempos de Procesamiento</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 21%">
+<col style="width: 22%">
+<col style="width: 27%">
+<col style="width: 28%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Motor de Procesamiento</th>
+<th style="text-align: center;">Parte A: JupyterLab (s)</th>
+<th style="text-align: center;">Parte B: Terminal VS Code (s)</th>
+<th style="text-align: center;">Parte C: PowerShell Directo (s)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>R: terra</strong></td>
+<td style="text-align: center;">10.672</td>
+<td style="text-align: center;">12.736</td>
+<td style="text-align: center;">15.368[TIEMPO]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Python: rasterio</strong></td>
+<td style="text-align: center;">1.587</td>
+<td style="text-align: center;">2.621</td>
+<td style="text-align: center;">11.06 seg[TIEMPO]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>R: stars</strong></td>
+<td style="text-align: center;">14.675</td>
+<td style="text-align: center;">2.621 s</td>
+<td style="text-align: center;">2.477[TIEMPO]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Julia: Rasters.jl</strong></td>
+<td style="text-align: center;">7.108</td>
+<td style="text-align: center;">13.457 s</td>
+<td style="text-align: center;">18.36 s[TIEMPO]</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Nota sobre la Parte C:</strong> Para la ejecución desde PowerShell se utilizó la <strong>Opción 2 (Ejecución directa)</strong> mediante el comando <code>docker exec</code>. Se observa que este método es el más eficiente para automatizar procesos de GeoAI, ya que consume menos recursos de interfaz gráfica de los 12GB de RAM asignados al contenedor.</p>
+</section>
+<section id="diferencias-notadas" class="level3">
+<h3 class="anchored" data-anchor-id="diferencias-notadas">Diferencias Notadas</h3>
+<ul>
+<li><p><strong>Optimización de RAM:</strong> Al prescindir de la interfaz de VS Code o Jupyter, se liberan recursos del sistema, permitiendo que los <strong>12GB de RAM</strong> se enfoquen exclusivamente en el procesamiento de datos.</p></li>
+<li><p><strong>Latencia de Inicialización:</strong> La ejecución en PowerShell presenta una ligera demora inicial comparada con Jupyter, ya que debe cargar el intérprete y las librerías en cada llamada, mientras que en el Notebook el kernel ya está activo.</p></li>
+<li><p><strong>Estabilidad:</strong> La terminal de Windows ofrece una ejecución más robusta ante bloqueos de la interfaz web, ideal para procesos que requieren alta intensidad de cómputo.</p></li>
+<li><p><strong>Compilación JIT:</strong> En Julia, la terminal permite monitorear de forma más limpia el proceso de compilación inicial antes de la ejecución del benchmark.</p></li>
+</ul>
+</section>
+</section>
+<section id="análisis-y-conclusiones-finales" class="level2">
+<h2 class="anchored" data-anchor-id="análisis-y-conclusiones-finales">Análisis y Conclusiones Finales</h2>
+</section>
+<section id="entorno-de-ejecución" class="level2">
+<h2 class="anchored" data-anchor-id="entorno-de-ejecución">1. 📍 Entorno de ejecución</h2>
+<p>¿Notaron diferencias de tiempo entre JupyterLab, VSCode y PowerShell? Sí, se observaron variaciones. Los Notebooks (JupyterLab) suelen ser más rápidos en ejecuciones repetitivas porque el kernel ya está activo y las librerías cargadas en los 12GB de RAM.</p>
+<p>Razón técnica: La ejecución en PowerShell o Terminal tiene un mayor overhead inicial, ya que cada vez que se corre un script, el sistema debe inicializar el intérprete (R, Python o Julia) y cargar todos los paquetes desde el disco al contenedor. En cambio, el kernel de Jupyter mantiene el entorno “caliente”.</p>
+</section>
+<section id="abstracción-en-la-práctica" class="level2">
+<h2 class="anchored" data-anchor-id="abstracción-en-la-práctica">2. 🧱 Abstracción en la práctica</h2>
+<p>¿En qué motor creen que el costo de las abstracciones es más visible? En R (específicamente con stars).</p>
+</section>
+<section id="relación-con-los-tiempos" class="level2">
+<h2 class="anchored" data-anchor-id="relación-con-los-tiempos">Relación con los tiempos:</h2>
+<p>Al observar los tiempos de 14.675 s en Jupyter, se nota que, aunque la sintaxis es muy amigable (alta abstracción), el motor realiza múltiples conversiones internas y manejo de metadatos que lo hacen más lento que terra o rasterio. La abstracción facilita el código pero penaliza la velocidad de procesamiento puro.</p>
+</section>
+<section id="julia-y-el-costo-de-compilación-warm-up" class="level2">
+<h2 class="anchored" data-anchor-id="julia-y-el-costo-de-compilación-warm-up">3. 🔥 Julia y el costo de compilación (Warm-up)</h2>
+<p>¿El efecto del warm-up de Julia se notó más en algún entorno específico? Se notó mucho más en la Terminal (VS Code y PowerShell).</p>
+<p>En la terminal, Julia debe realizar la compilación JIT (Just-In-Time) de las librerías Rasters y ArchGDAL en cada ejecución individual del script. En JupyterLab, una vez que la primera celda compila los paquetes, las ejecuciones siguientes son casi instantáneas porque el código ya está traducido a lenguaje de máquina en la memoria activa.</p>
+</section>
+<section id="elección-informada" class="level2">
+<h2 class="anchored" data-anchor-id="elección-informada">4. 🧠 Elección informada</h2>
+<p>¿Cambiarían su elección del “Titán” para una emergencia ambiental real? No, mantendría a Python (rasterio) como el titán por su velocidad consistente (cerca de 1.5s - 2.6s) en todos los entornos. En una emergencia, la capacidad de ejecutar scripts rápidos vía terminal (PowerShell) sin depender de una interfaz pesada es vital para procesar grandes volúmenes de datos Sentinel-2 de manera automática y confiable bajo la configuración de 12GB de RAM optimizada.</p>
 </section>
 
 </main>
